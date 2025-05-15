@@ -1,2 +1,2 @@
-# ISRO-Analytics
+# ISRO-Worklet
 Geospatial analytics

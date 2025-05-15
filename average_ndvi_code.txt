@@ -1,0 +1,27 @@
+
+var dt=table.filter(ee.Filter.eq('distname','Nuh'));
+Map.addLayer(dt);
+Map.centerObject(dt,10);
+var s2 = ee.ImageCollection("COPERNICUS/S2_HARMONIZED")
+var image = s2.filterBounds(dt)
+            .filterMetadata('CLOUDY_PIXEL_PERCENTAGE','less_than',1)
+            .filterDate('2015-10-01','2016-04-30')
+            .median()
+            .clip(dt)
+
+Map.addLayer(image)
+Map.addLayer(image,imageVisParam,'True Color');      
+
+var NDVI = image.normalizedDifference(['B8','B4'])
+
+Map.addLayer(NDVI,{min:-1,max:0.7,palette:['blue','white','green']})
+
+var average=NDVI.reduceRegion({
+  reducer:ee.Reducer.mean(),
+  geometry:dt,
+  scale:10,
+  maxPixels:1e13
+});
+
+
+print(average);

@@ -1,0 +1,149 @@
+
+var dt=table.filter(ee.Filter.eq('distname','Kapurthala'));
+var coll1=ee.ImageCollection("COPERNICUS/S2_SR_HARMONIZED")
+               .filterDate('2018-10-01','2018-10-15')
+               .filterBounds(dt);
+var coll2=ee.ImageCollection("COPERNICUS/S2_SR_HARMONIZED")
+               .filterDate('2018-10-16','2018-10-30')
+               .filterBounds(dt);
+               
+var coll3=ee.ImageCollection("COPERNICUS/S2_SR_HARMONIZED")
+               .filterDate('2018-11-01','2018-11-15')
+               .filterBounds(dt);
+               
+var coll4=ee.ImageCollection("COPERNICUS/S2_SR_HARMONIZED")
+               .filterDate('2018-11-16','2018-11-30')
+               .filterBounds(dt);
+
+var coll5=ee.ImageCollection("COPERNICUS/S2_SR_HARMONIZED")
+               .filterDate('2018-12-01','2018-12-15')
+               .filterBounds(dt);
+               
+var coll6=ee.ImageCollection("COPERNICUS/S2_SR_HARMONIZED")
+               .filterDate('2018-12-16','2018-12-30')
+               .filterBounds(dt);
+               
+var coll7=ee.ImageCollection("COPERNICUS/S2_SR_HARMONIZED")
+               .filterDate('2019-01-01','2019-01-15')
+               .filterBounds(dt);
+               
+var coll8=ee.ImageCollection("COPERNICUS/S2_SR_HARMONIZED")
+               .filterDate('2019-01-16','2019-01-30')
+               .filterBounds(dt);
+               
+var coll9=ee.ImageCollection("COPERNICUS/S2_SR_HARMONIZED")
+               .filterDate('2019-02-01','2019-02-15')
+               .filterBounds(dt);
+               
+var coll10=ee.ImageCollection("COPERNICUS/S2_SR_HARMONIZED")
+               .filterDate('2019-02-16','2019-02-28')
+               .filterBounds(dt);
+               
+var coll11=ee.ImageCollection("COPERNICUS/S2_SR_HARMONIZED")
+               .filterDate('2019-03-01','2019-03-15')
+               .filterBounds(dt);
+               
+var coll12=ee.ImageCollection("COPERNICUS/S2_SR_HARMONIZED")
+               .filterDate('2019-03-16','2019-03-30')
+               .filterBounds(dt);               
+//print(coll1)
+               
+var addNDVI = function(img)
+{
+  var ndvi = img.normalizedDifference(['B8','B4']).rename('NDVI')
+  return img.addBands(ndvi);
+}
+
+var withNDVI1=coll1.map(addNDVI);
+var withNDVI2=coll2.map(addNDVI);
+var withNDVI3=coll3.map(addNDVI);
+var withNDVI4=coll4.map(addNDVI);
+var withNDVI5=coll5.map(addNDVI);
+var withNDVI6=coll6.map(addNDVI);
+var withNDVI7=coll7.map(addNDVI);
+var withNDVI8=coll8.map(addNDVI);
+var withNDVI9=coll9.map(addNDVI);
+var withNDVI10=coll10.map(addNDVI);
+var withNDVI11=coll11.map(addNDVI);
+var withNDVI12=coll12.map(addNDVI);
+
+
+//print(withNDVI1)
+
+
+var greenest1= withNDVI1.qualityMosaic('NDVI').select(['B2','B3','B4','B8','B11','B12']).clip(dt);
+var greenest2= withNDVI2.qualityMosaic('NDVI').select(['B2','B3','B4','B8','B11','B12']).clip(dt);
+var greenest3= withNDVI3.qualityMosaic('NDVI').select(['B2','B3','B4','B8','B11','B12']).clip(dt);
+var greenest4= withNDVI4.qualityMosaic('NDVI').select(['B2','B3','B4','B8','B11','B12']).clip(dt);
+var greenest5= withNDVI5.qualityMosaic('NDVI').select(['B2','B3','B4','B8','B11','B12']).clip(dt);
+var greenest6= withNDVI6.qualityMosaic('NDVI').select(['B2','B3','B4','B8','B11','B12']).clip(dt);
+var greenest7= withNDVI7.qualityMosaic('NDVI').select(['B2','B3','B4','B8','B11','B12']).clip(dt);
+var greenest8= withNDVI8.qualityMosaic('NDVI').select(['B2','B3','B4','B8','B11','B12']).clip(dt);
+var greenest9= withNDVI9.qualityMosaic('NDVI').select(['B2','B3','B4','B8','B11','B12']).clip(dt);
+var greenest10= withNDVI10.qualityMosaic('NDVI').select(['B2','B3','B4','B8','B11','B12']).clip(dt);
+var greenest11= withNDVI11.qualityMosaic('NDVI').select(['B2','B3','B4','B8','B11','B12']).clip(dt);
+var greenest12= withNDVI12.qualityMosaic('NDVI').select(['B2','B3','B4','B8','B11','B12']).clip(dt);
+
+
+//print(greenest1)
+
+var ndvi1=greenest1.normalizedDifference(['B8','B4']).rename('NDVI1');
+var ndvi2=greenest2.normalizedDifference(['B8','B4']).rename('NDVI2');
+var ndvi3=greenest3.normalizedDifference(['B8','B4']).rename('NDVI3');
+var ndvi4=greenest4.normalizedDifference(['B8','B4']).rename('NDVI4');
+var ndvi5=greenest5.normalizedDifference(['B8','B4']).rename('NDVI5');
+var ndvi6=greenest6.normalizedDifference(['B8','B4']).rename('NDVI6');
+var ndvi7=greenest7.normalizedDifference(['B8','B4']).rename('NDVI7');
+var ndvi8=greenest8.normalizedDifference(['B8','B4']).rename('NDVI8');
+var ndvi9=greenest9.normalizedDifference(['B8','B4']).rename('NDVI9');
+var ndvi10=greenest10.normalizedDifference(['B8','B4']).rename('NDVI10');
+var ndvi11=greenest11.normalizedDifference(['B8','B4']).rename('NDVI11');
+var ndvi12=greenest12.normalizedDifference(['B8','B4']).rename('NDVI12');
+
+var stacked_ndvi =ndvi1.addBands([ndvi2,ndvi3,ndvi4,ndvi5,ndvi6,ndvi7,ndvi8,ndvi9,ndvi10,ndvi11,
+                  ndvi12]);
+var stacked_ndvi_scaled = stacked_ndvi.multiply(100).add(100).uint8();
+
+Map.addLayer(stacked_ndvi_scaled,{bands:['NDVI9','NDVI5','NDVI3'],min:100,max:200},'Stacked_ndvi');
+                  
+Map.addLayer(greenest9,{bands:['B8','B4','B3'],min:0,max:4000},'Sen_Feb1sthalf');
+
+                  
+print(ndvi1)
+Map.centerObject(dt);
+
+var gt = crop.merge(other);
+
+var training_data = stacked_ndvi_scaled.sampleRegions({
+  collection : gt, 
+  properties :['class'],
+  scale : 10, 
+  });
+  
+var classifier  = ee.Classifier.smileRandomForest(100)
+                  .train({
+                    features:training_data,
+                    classProperty:'class'
+                  });
+                  
+var classified =  stacked_ndvi_scaled.classify(classifier,'Classified');   
+
+var classified1=classified.updateMask(classified.eq(1));
+
+//Map.addLayer(classified,{palette:['white','yellow'],min:0,max:1},'Classified') ; 
+Map.addLayer(classified1,{palette:['yellow'],min:0,max:1},'Classified') ; 
+
+var areaImage = ee.Image.pixelArea().addBands(classified1);
+var areas = areaImage.reduceRegion({
+  reducer:ee.Reducer.sum().group({
+    groupField:1,
+    groupName:'class',
+    
+  }),
+  geometry:dt,
+  scale:10,
+  maxPixels:1e13,
+});
+
+print("CLASS AREA IN SQ METRES");
+print(areas);
